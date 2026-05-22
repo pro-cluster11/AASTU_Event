@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { Pool } = require('pg');
+const path = require('path');
 
 const app = express();
 
@@ -24,11 +25,11 @@ app.use(morgan('dev'));
 // Serve frontend/ at the root
 // → http://localhost:5000/  (index.html)
 // → http://localhost:5000/pages/events.html
-app.use(express.static('frontend'));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 // Root redirect
 app.get('/', (req, res) => {
-  res.sendFile('index.html', { root: 'frontend' });
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
 /* =========================================================
